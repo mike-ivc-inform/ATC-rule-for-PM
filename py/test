@@ -9,3 +9,16 @@ df = pd.DataFrame(variable_values.items(), columns=['Activity', 'Repair Team'])
 # Print the DataFrame
 print(df)
 ----------
+import pandas as pd
+
+# Convert ci_values dictionary to pandas Series
+ci_series = pd.Series(ci_values, name='Completion Time')
+
+# Print the Series
+print(ci_series)
+--------------------
+# Convert ci_values dictionary to pandas DataFrame
+ci_df = pd.DataFrame(list(ci_values.items()), columns=['Activity', 'Completion Time'])
+
+# Print the DataFrame
+print(ci_df)
