@@ -53,19 +53,35 @@ solver.solve(model)
 #                print("  Job completed on time.")
 #            else:
 #                print("  Job completed late.")
-#-----------------------------------------------
+#----------------------------------------------- 9-1
+## Print the results
+#print("Optimal Solution:")
+#for i in range(1, m + 1):
+#    for j in range(1, n + 1):
+#        if model.x[i, j].value is not None and model.x[i, j].value == 1:
+#            print(f"Job {i} is assigned to repair team {j}.")
+#            if model.U[i, j].value is not None and model.U[i, j].value == 1:
+#                print("  Job completed on time.")
+#            elif model.L[i, j].value is not None and model.L[i, j].value == 1:
+#                print("  Job completed late.")
+#            else:
+#                print("  Job status unknown (not completed on time or late).")
+#        else:
+#            print(f"No assignment for Job {i} to repair team {j}.")
+##--------------------------------------------------------------------
+##---------------------------------------------------------9-2
 # Print the results
 print("Optimal Solution:")
 for i in range(1, m + 1):
     for j in range(1, n + 1):
-        if model.x[i, j].value is not None and model.x[i, j].value == 1:
-            print(f"Job {i} is assigned to repair team {j}.")
-            if model.U[i, j].value is not None and model.U[i, j].value == 1:
-                print("  Job completed on time.")
-            elif model.L[i, j].value is not None and model.L[i, j].value == 1:
-                print("  Job completed late.")
+        if model.x[i, j].value is not None:
+            if model.x[i, j].value == 1:
+                print(f"Job {i} is assigned to repair team {j}.")
+                if model.U[i, j].value == 1:
+                    print("  Job completed on time.")
+                else:
+                    print("  Job completed late.")
             else:
-                print("  Job status unknown (not completed on time or late).")
-        else:
-            print(f"No assignment for Job {i} to repair team {j}.")
+                print(f"No assignment for Job {i} to repair team {j}.")
+
 
