@@ -70,18 +70,39 @@ solver.solve(model)
 #            print(f"No assignment for Job {i} to repair team {j}.")
 ##--------------------------------------------------------------------
 ##---------------------------------------------------------9-2
+## Print the results
+#print("Optimal Solution:")
+#for i in range(1, m + 1):
+#    for j in range(1, n + 1):
+#        if model.x[i, j].value is not None:
+#            if model.x[i, j].value == 1:
+#                print(f"Job {i} is assigned to repair team {j}.")
+#                if model.U[i, j].value == 1:
+#                    print("  Job completed on time.")
+#                else:
+#                    print("  Job completed late.")
+#            else:
+#                print(f"No assignment for Job {i} to repair team {j}.")
+##------------------------------------------------------------
+##------------------------------------------------9-3
 # Print the results
 print("Optimal Solution:")
 for i in range(1, m + 1):
     for j in range(1, n + 1):
+        print(f"Checking assignment for Job {i} to repair team {j}:")
         if model.x[i, j].value is not None:
+            print(f"  Variable x[{i},{j}] has a value: {model.x[i, j].value}")
             if model.x[i, j].value == 1:
-                print(f"Job {i} is assigned to repair team {j}.")
+                print(f"  Job {i} is assigned to repair team {j}.")
                 if model.U[i, j].value == 1:
-                    print("  Job completed on time.")
+                    print("    Job completed on time.")
                 else:
-                    print("  Job completed late.")
+                    print("    Job completed late.")
             else:
-                print(f"No assignment for Job {i} to repair team {j}.")
+                print(f"  No assignment for Job {i} to repair team {j}.")
+        else:
+            print(f"  Variable x[{i},{j}] does not have a value.")
+
+print("End of printing results")
 
 
