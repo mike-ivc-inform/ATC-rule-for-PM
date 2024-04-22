@@ -1,0 +1,16 @@
+KeyError                                  Traceback (most recent call last)
+<ipython-input-30-9b52d7bb5d6a> in <module>
+     12 if total_complexity > sum(T.values()):
+     13     # Identify the job with lowest priority and longest deadline
+---> 14     excluded_job = min(w, key=lambda k: (w[k], -d[k]))
+     15     print(f"Excluded job: {excluded_job}")
+     16 
+
+<ipython-input-30-9b52d7bb5d6a> in <lambda>(k)
+     12 if total_complexity > sum(T.values()):
+     13     # Identify the job with lowest priority and longest deadline
+---> 14     excluded_job = min(w, key=lambda k: (w[k], -d[k]))
+     15     print(f"Excluded job: {excluded_job}")
+     16 
+
+KeyError: (1, 1)
