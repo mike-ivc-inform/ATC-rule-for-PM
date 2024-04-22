@@ -65,3 +65,24 @@ pyomo\repn\plugins\cpxlp.pyx in pyomo.repn.plugins.cpxlp.ProblemWriter_cpxlp.__c
 pyomo\repn\plugins\cpxlp.pyx in pyomo.repn.plugins.cpxlp.ProblemWriter_cpxlp._print_model_LP()
 
 ValueError: Solver unable to handle quadratic expressions. Constraint at issue: 'constraints[11]'
+
+-----
+----- 9
+Optimal Solution:
+ERROR: evaluating object as numeric value: x[1,1]
+        (object: <class 'pyomo.core.base.var._GeneralVarData'>)
+    No value for uninitialized NumericValue object x[1,1]
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-8-11c637b02a75> in <module>
+     33 for i in range(1, m + 1):
+     34     for j in range(1, n + 1):
+---> 35         if value(model.x[i, j]) == 1:
+     36             print(f"Job {i} is assigned to repair team {j}.")
+     37             if value(model.U[i, j]) == 1:
+
+pyomo\core\expr\numvalue.pyx in pyomo.core.expr.numvalue.value()
+
+pyomo\core\expr\numvalue.pyx in pyomo.core.expr.numvalue.value()
+
+ValueError: No value for uninitialized NumericValue object x[1,1]
