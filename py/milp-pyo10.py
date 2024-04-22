@@ -17,9 +17,7 @@ model = ConcreteModel()
 
 # Define binary decision variables
 model.x = Var(range(1, m + 1), range(1, n + 1), domain=Binary)
-model.U = Var(range(1, m + 1), range(1, n + 1), domain=Binary)
 model.V = Var(range(1, m + 1), range(1, n + 1), domain=Binary)
-model.L = Var(range(1, m + 1), range(1, n + 1), domain=Binary)
 
 # Define objective function
 model.obj = Objective(expr=sum(w[i, j] * model.V[i, j] for i in range(1, m + 1) for j in range(1, n + 1)),
@@ -34,13 +32,8 @@ for j in range(1, n + 1):
     model.constraints.add(sum(c[i] * model.x[i, j] for i in range(1, m + 1)) <= T[j])
 
 for i in range(1, m + 1):
-    model.constraints.add(sum(d[i] * model.U[i, j] for j in range(1, n + 1)) <= d[i])
-
-for i in range(1, m + 1):
     for j in range(1, n + 1):
-        model.constraints.add(model.V[i, j] + model.L[i, j] == 1)
-        model.constraints.add(model.V[i, j] * model.U[i, j] == model.V[i, j])
-        model.constraints.add(model.L[i, j] * (1 - model.U[i, j]) == model.L[i, j])
+        model.constraints.add(model.x[i, j] <= model.V[i, j])
 
 # Solve the optimization problem
 solver = SolverFactory('glpk')
@@ -54,8 +47,9 @@ for i in range(1, m + 1):
             print(f"Job {i} is assigned to repair team {j}.")
             if value(model.V[i, j]) == 1:
                 print("  Job completed on time.")
-            elif value(model.L[i, j]) == 1:
+            else:
                 print("  Job completed late.")
+
 #---------------------2-------------------------------
 # Identify late work from Iteration 1
 late_work = [(i, j) for i in range(1, m + 1) for j in range(1, n + 1) if value(model.x[i, j]) == 0]
