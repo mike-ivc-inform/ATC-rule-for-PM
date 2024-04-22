@@ -65,18 +65,31 @@ for i in model.m:
             print(f"Job {i} completed on time by repair team {j}")
 
 #----------------------------------------------------------------
-Objective value: 22.0
-
-Job assignments:
-Job 1 assigned to repair team 3
-Job 2 assigned to repair team 3
-Job 3 assigned to repair team 1
-Job 4 assigned to repair team 1
-Job 5 assigned to repair team 3
-
-Completion status:
-Job 1 completed on time by repair team 2
-Job 2 completed on time by repair team 3
-Job 3 completed on time by repair team 1
-Job 4 completed on time by repair team 1
-Job 5 completed on time by repair team 2
+#Objective value: 22.0
+#
+#Job assignments:
+#Job 1 assigned to repair team 3
+#Job 2 assigned to repair team 3
+#Job 3 assigned to repair team 1
+#Job 4 assigned to repair team 1
+#Job 5 assigned to repair team 3
+#
+#Completion status:
+#Job 1 completed on time by repair team 2
+#Job 2 completed on time by repair team 3
+#Job 3 completed on time by repair team 1
+#Job 4 completed on time by repair team 1
+#Job 5 completed on time by repair team 2
+#------------------------------------------------
+# Print results
+print("Objective value:", model.objective())
+print("\nJob assignments:")
+for i in model.m:
+    for j in model.n:
+        if model.x[i, j].value == 1:
+            print(f"Job {i} assigned to repair team {j}")
+print("\nCompletion status:")
+for i in model.m:
+    for j in model.n:
+        if model.U[i, j].value == 1:
+            print(f"Job {i} completed on time by repair team {j+1}")
