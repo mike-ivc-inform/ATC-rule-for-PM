@@ -58,6 +58,7 @@ late_work = [(i, j) for i in range(1, m + 1) for j in range(1, n + 1) if value(m
 print("Late Work Identified (Iteration 2):")
 for work in late_work:
     print(f"Job {work[0]} was not assigned to any team.")
+
 #---------------------3-----------------------------------
 # Create a Pyomo Concrete Model for Iteration 3
 model_iter3 = ConcreteModel()
