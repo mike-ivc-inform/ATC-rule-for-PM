@@ -1,0 +1,67 @@
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-12-99dad7aca341> in <module>
+     31 # Solve the optimization problem
+     32 solver = SolverFactory('glpk')
+---> 33 solver.solve(model)
+     34 
+     35 # Print the results
+
+C:\Anaconda3\lib\site-packages\pyomo\opt\base\solvers.py in solve(self, *args, **kwds)
+    567             initial_time = time.time()
+    568 
+--> 569             self._presolve(*args, **kwds)
+    570 
+    571             presolve_completion_time = time.time()
+
+C:\Anaconda3\lib\site-packages\pyomo\opt\solver\shellcmd.py in _presolve(self, *args, **kwds)
+    203         self._define_signal_handlers = kwds.pop('use_signal_handling',None)
+    204 
+--> 205         OptSolver._presolve(self, *args, **kwds)
+    206 
+    207         #
+
+C:\Anaconda3\lib\site-packages\pyomo\opt\base\solvers.py in _presolve(self, *args, **kwds)
+    664             write_start_time = time.time()
+    665             (self._problem_files, self._problem_format, self._smap_id) = \
+--> 666                 self._convert_problem(args,
+    667                                       self._problem_format,
+    668                                       self._valid_problem_formats,
+
+C:\Anaconda3\lib\site-packages\pyomo\opt\base\solvers.py in _convert_problem(self, args, problem_format, valid_problem_formats, **kwds)
+    715                          valid_problem_formats,
+    716                          **kwds):
+--> 717         return convert_problem(args,
+    718                                problem_format,
+    719                                valid_problem_formats,
+
+C:\Anaconda3\lib\site-packages\pyomo\opt\base\convert.py in convert_problem(args, target_problem_type, valid_problem_types, has_capability, **kwds)
+     98                     tmpkw = kwds
+     99                     tmpkw['capabilities'] = has_capability
+--> 100                     problem_files, symbol_map = converter.apply(*tmp, **tmpkw)
+    101                     return problem_files, ptype, symbol_map
+    102 
+
+C:\Anaconda3\lib\site-packages\pyomo\solvers\plugins\converter\model.py in apply(self, *args, **kwds)
+     75                 else:
+     76                     (problem_filename, symbol_map_id) = \
+---> 77                         instance.write(
+     78                             filename=problem_filename,
+     79                             format=ProblemFormat.cpxlp,
+
+C:\Anaconda3\lib\site-packages\pyomo\core\base\block.py in write(self, filename, format, solver_capability, io_options)
+   1820         if solver_capability is None:
+   1821             def solver_capability(x): return True
+-> 1822         (filename, smap) = problem_writer(self,
+   1823                                           filename,
+   1824                                           solver_capability,
+
+pyomo\repn\plugins\cpxlp.pyx in pyomo.repn.plugins.cpxlp.ProblemWriter_cpxlp.__call__()
+
+pyomo\repn\plugins\cpxlp.pyx in pyomo.repn.plugins.cpxlp.ProblemWriter_cpxlp.__call__()
+
+pyomo\repn\plugins\cpxlp.pyx in pyomo.repn.plugins.cpxlp.ProblemWriter_cpxlp.__call__()
+
+pyomo\repn\plugins\cpxlp.pyx in pyomo.repn.plugins.cpxlp.ProblemWriter_cpxlp._print_model_LP()
+
+ValueError: Solver unable to handle quadratic expressions. Constraint at issue: 'constraints[15]'
