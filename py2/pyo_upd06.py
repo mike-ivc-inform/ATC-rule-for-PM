@@ -121,3 +121,44 @@ nx.draw(G, pos, with_labels=True, node_size=2000, node_color="skyblue", font_siz
 plt.title("Assigned Work for Repair Teams", fontsize=15)
 plt.show()
 
+# --------- COLORS -------------------------------
+import networkx as nx
+import matplotlib.pyplot as plt
+
+# Create a directed graph
+G = nx.DiGraph()
+
+# Add nodes for repair teams
+for j in model.J:
+    G.add_node(f"Team {j}", color='blue')
+
+# Add nodes for jobs
+for i in model.I:
+    G.add_node(f"Job {i}", color='green')
+
+# Add edges for assigned jobs
+for i in model.I:
+    for j in model.J:
+        if value(model.x[i, j]) == 1:
+            G.add_edge(f"Team {j}", f"Job {i}")
+
+# Plot the graph
+plt.figure(figsize=(10, 6))
+pos = nx.spring_layout(G, seed=42)  # Positions for all nodes
+
+# Draw nodes
+node_colors = [G.nodes[node]['color'] for node in G.nodes]
+nx.draw_networkx_nodes(G, pos, node_size=2000, node_color=node_colors)
+
+# Draw edges
+nx.draw_networkx_edges(G, pos, edge_color="gray", arrowsize=20)
+
+# Draw labels
+nx.draw_networkx_labels(G, pos, font_size=10, font_weight="bold")
+
+# Set title
+plt.title("Assigned Work for Repair Teams", fontsize=15)
+
+plt.axis('off')
+plt.show()
+
