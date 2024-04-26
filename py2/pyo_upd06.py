@@ -84,3 +84,17 @@ print("\nBinary Variable U (Ability to Complete Work on Time):")
 for i in model.I:
     for j in model.J:
         print(f"Job {i}, Repair Team {j}: {value(model.U[i, j])}")
+
+print("\nDeadlines for repair jobs:")
+for i in model.I:
+    print(f"Deadlin job {i}: {value(model.d[i])}")
+
+print("\nProductivity of repair teams:")
+for j in model.J:
+    print(f"Productivity teams {j}: {value(model.T[j])}")
+
+print("\nPriority values for repair jobs:")
+for i in model.I:
+    print(f"Priority jobs {i}: {value(model.w[i])}")
+
+
