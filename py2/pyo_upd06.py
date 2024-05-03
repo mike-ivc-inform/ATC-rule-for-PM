@@ -162,3 +162,27 @@ plt.title("Assigned Work for Repair Teams", fontsize=15)
 plt.axis('off')
 plt.show()
 
+# --------------icons -----------------
+import PIL
+# Image URLs for graph nodes
+icons = {
+    "job": "icons/operation.png",
+    "team": "icons/group.png",
+}
+
+# Load images
+images = {k: PIL.Image.open(fname) for k, fname in icons.items()}
+# Add nodes for repair teams
+for j in model.J:
+    G.add_node(f"Team {j}",  image=images["team"])
+
+# Add nodes for jobs
+for i in model.I:
+    G.add_node(f"Job {i}",  image=images["job"])
+
+# Add edges for assigned jobs
+for i in model.I:
+    for j in model.J:
+        if value(model.x[i, j]) == 1:
+            G.add_edge(f"Team {j}", f"Job {i}")
+
