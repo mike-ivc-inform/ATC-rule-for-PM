@@ -415,3 +415,67 @@ plt.title("Assigned Work for Repair Teams", fontsize=15)
 
 plt.axis('off')
 plt.show()
+
+# ---------------Изменение вида графа circular layout ----------------------
+import networkx as nx
+import matplotlib.pyplot as plt
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+import PIL
+
+# Create a directed graph
+G = nx.DiGraph()
+
+# Image URLs for graph nodes
+icons = {
+    "job": "icons/operation.png",
+    "team": "icons/group.png",
+    "jobnot": "icons/opernot.png",
+}
+
+# Load images
+images = {k: PIL.Image.open(fname) for k, fname in icons.items()}
+
+# Add nodes for repair teams
+for j in model.J:
+    G.add_node(f"Team {j}", image=images["team"], label=f"Team {j}")
+
+# Add nodes for jobs
+for i in model.I:
+    if all(not G.has_edge(f"Team {j}", f"Job {i}") for j in model.J):
+        G.add_node(f"Job {i}", image=images["jobnot"], label=f"Job {i}")
+    else:
+        G.add_node(f"Job {i}", image=images["job"], label=f"Job {i}")
+
+# Add edges for assigned jobs
+for i in model.I:
+    for j in model.J:
+        if value(model.x[i, j]) == 1:
+            G.add_edge(f"Team {j}", f"Job {i}")
+
+# Plot the graph
+plt.figure(figsize=(10, 6))
+
+# Circular layout
+pos = nx.circular_layout(G)
+
+# Draw nodes with icons and labels
+for node, (x, y) in pos.items():
+    if "Team" in node:
+        image = images["team"]
+    elif "Job" in node:
+        image = images["job"]
+    else:
+        image = images["jobnot"]
+    im = OffsetImage(image, zoom=0.1)
+    ab = AnnotationBbox(im, (x, y), xycoords='data', frameon=False)
+    plt.gca().add_artist(ab)
+    plt.text(x, y - 0.1, G.nodes[node]['label'], ha='center', fontsize=10)
+
+# Draw edges
+nx.draw_networkx_edges(G, pos, edge_color="gray", arrowsize=20)
+
+# Set title
+plt.title("Assigned Work for Repair Teams", fontsize=15)
+
+plt.axis('off')
+plt.show()
